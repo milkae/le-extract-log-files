@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Landes  Éternelles - Extraction de logs`,
+    description: `Un outil facilitant l'extraction de données depuis les fichiers de log du jeu Landes éternelles`,
+    author: `@milkae`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
