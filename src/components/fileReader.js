@@ -122,7 +122,7 @@ const FileInput = ({ setFilteredText, options }) => {
   const filterFile = () => {
     const lines = text.split(/[\r\n]+/g)
     const filteredLines = lines.filter(testLine)
-    setFilteredText(filteredLines.join("\n"))
+    setFilteredText(filteredLines.join("\r\n"))
   }
 
   const handleFileRead = e => {
