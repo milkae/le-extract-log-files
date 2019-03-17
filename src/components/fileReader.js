@@ -1,9 +1,28 @@
 import React from "react"
 
-const FileInput = ({ setText }) => {
+const FileInput = ({ setText, options }) => {
   let fileReader
   const testLine = line => {
     const date = "\\[\\d{2}:\\d{2}:\\d{2}\\]"
+    const filters = {
+      c2: checked => checked && "@ 2]:",
+      c3: checked => checked && "@ 3]:",
+      c1: checked => checked && "@ 1]:",
+      local: checked => checked && `${date} [^\\[]`,
+      peuple: checked => checked && "@ 1[1-8]]:",
+      perso: liste => {
+        const numbers = liste
+          .split(";")
+          .filter(number => !isNaN(number))
+          .join("|")
+        return numbers && `@ [${numbers}]`
+      },
+    }
+
+    const selecteFilters = Object.keys(options)
+      .map(option => filters[option] && filters[option](options[option]))
+      .filter(Boolean)
+
     const linesExcluded = [
       `${date} $`,
       `${date} Pour `,
@@ -35,7 +54,7 @@ const FileInput = ({ setText }) => {
       `${date} Vous `,
       `${date} Ne `,
       `${date} Rien `,
-      `${date} #Mg `,
+      `${date} #`,
       `${date} Utilise `,
       `${date} Continue, `,
       `${date} Ta `,
@@ -50,8 +69,6 @@ const FileInput = ({ setText }) => {
       "^La ",
       "^Atey'Ech",
       "^L'Esprit ",
-      "@ 1]:",
-      "@ 3]:",
       "Hourly time-stamp",
       "a été notifié, maintenant attends qu'il veuille n.gocier avec toi$",
       "a abandonné la n.gociation.$",
@@ -59,12 +76,18 @@ const FileInput = ({ setText }) => {
       "vient de se d.connecter.$",
     ]
 
+    const dateMatch = new RegExp(date)
+
     return (
       line &&
+      dateMatch.test(line) &&
       linesExcluded.every(exclude => {
-        const dateMatch = new RegExp(date)
         const regex = new RegExp(exclude)
-        return dateMatch.test(line) && !regex.test(line)
+        return !regex.test(line)
+      }) &&
+      selecteFilters.some(filter => {
+        const regex = new RegExp(filter)
+        return regex.test(line)
       })
     )
   }
