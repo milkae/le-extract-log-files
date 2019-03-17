@@ -24,24 +24,28 @@ const Layout = ({ children }) => (
       }
     `}
     render={data => (
-      <>
+      <div
+        style={{
+          minHeight: `100vh`,
+          gridTemplateRows: "auto 1fr auto",
+          display: "grid",
+          backgroundColor: "#e3c396",
+        }}
+      >
         <Header siteTitle={data.site.siteMetadata.title} />
-        <div
+        <main>{children}</main>
+        <footer
           style={{
-            margin: `0 auto`,
-            maxWidth: 960,
-            padding: `0px 1.0875rem 1.45rem`,
-            paddingTop: 0,
+            backgroundColor: `#370703`,
+            padding: "1rem",
+            color: "#fff",
           }}
         >
-          <main>{children}</main>
-          <footer>
-            © {new Date().getFullYear()}, Built with
-            {` `}
-            <a href="https://www.gatsbyjs.org">Gatsby</a>
-          </footer>
-        </div>
-      </>
+          © {new Date().getFullYear()}, Built with
+          {` `}
+          <a href="https://www.gatsbyjs.org">Gatsby</a>
+        </footer>
+      </div>
     )}
   />
 )

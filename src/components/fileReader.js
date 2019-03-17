@@ -79,19 +79,17 @@ const FileInput = ({ setText }) => {
   const handleFile = file => {
     fileReader = new FileReader()
     fileReader.onloadend = handleFileRead
-    fileReader.readAsText(file, 'ISO-8859-1')
+    fileReader.readAsText(file, "ISO-8859-1")
   }
 
   return (
-    <div>
-      <input
-        type="file"
-        id="file"
-        className="input-file"
-        accept=".txt"
-        onChange={e => handleFile(e.target.files[0])}
-      />
-    </div>
+    <input
+      type="file"
+      id="file"
+      className="input-file"
+      accept=".txt"
+      onChange={e => handleFile(e.target.files[0])}
+    />
   )
 }
 
