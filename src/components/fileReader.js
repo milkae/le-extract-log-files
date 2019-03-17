@@ -1,7 +1,14 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 
-const FileInput = ({ setText, options }) => {
+const FileInput = ({ setFilteredText, options }) => {
+  const [text, setText] = useState("")
+
+  useEffect(() => {
+    filterFile()
+  })
+
   let fileReader
+
   const testLine = line => {
     const date = "\\[\\d{2}:\\d{2}:\\d{2}\\]"
     const filters = {
@@ -92,11 +99,15 @@ const FileInput = ({ setText, options }) => {
     )
   }
 
+  const filterFile = () => {
+    const lines = text.split(/[\r\n]+/g)
+    const filteredLines = lines.filter(testLine)
+    setFilteredText(filteredLines.join("\n"))
+  }
+
   const handleFileRead = e => {
     const content = fileReader.result
-    const lines = content.split(/[\r\n]+/g)
-    const filteredLines = lines.filter(testLine)
-    setText(filteredLines.join("\n"))
+    setText(content)
   }
 
   const handleFile = file => {

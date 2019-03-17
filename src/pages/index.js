@@ -27,7 +27,7 @@ const IndexPage = () => {
       />
       <p>
         Chargez le fichier des logs à traiter :{" "}
-        <FileReader setText={setText} options={options} />
+        <FileReader setFilteredText={setText} options={options} />
       </p>
       <Options setOptions={setOptions} options={options} />
       {text && (
