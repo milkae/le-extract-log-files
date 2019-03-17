@@ -20,9 +20,10 @@ const FileInput = ({ setFilteredText, options }) => {
       perso: liste => {
         const numbers = liste
           .split(";")
-          .filter(number => !isNaN(number))
+          .map(part => part.trim())
+          .filter(number => Boolean(number) && !isNaN(number))
           .join("|")
-        return numbers && `@ [${numbers}]`
+        return numbers && `@ (${numbers})]:`
       },
     }
 
