@@ -79,7 +79,7 @@ const FileInput = ({ setText }) => {
   const handleFile = file => {
     fileReader = new FileReader()
     fileReader.onloadend = handleFileRead
-    fileReader.readAsText(file)
+    fileReader.readAsText(file, 'ISO-8859-1')
   }
 
   return (
