@@ -17,7 +17,7 @@ const FileInput = ({ setFilteredText, options }) => {
       c1: checked => checked && "@ 1]:",
       local: checked => checked && `${date} [^\\[]`,
       peuple: checked => checked && "@ 1[1-8]]:",
-      perso: liste => {
+      channels: liste => {
         const numbers = liste
           .split(";")
           .map(part => part.trim())
@@ -84,11 +84,30 @@ const FileInput = ({ setFilteredText, options }) => {
       "vient de se d.connecter.$",
     ]
 
+    const namesMatch = line => {
+      const names =
+        options.names &&
+        options.names
+          .split(";")
+          .map(part => part.trim())
+          .filter(name => Boolean(name))
+          .join("|")
+
+      if (!names) {
+        return true
+      }
+
+      const regex = new RegExp(`((${names}):)|((${names}) @)`)
+
+      return regex.test(line)
+    }
+
     const dateMatch = new RegExp(date)
 
     return (
       line &&
       dateMatch.test(line) &&
+      namesMatch(line) &&
       linesExcluded.every(exclude => {
         const regex = new RegExp(exclude)
         return !regex.test(line)

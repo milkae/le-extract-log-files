@@ -16,7 +16,8 @@ const IndexPage = () => {
     c4: false,
     local: true,
     peuple: true,
-    perso: "",
+    channels: "",
+    names: "",
   })
 
   return (
