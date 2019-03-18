@@ -112,6 +112,13 @@ const Options = ({ setOptions, options }) => {
               onChange={handleChange}
             />
           </div>
+          <input
+            type="checkbox"
+            name="mp"
+            checked={values.mp}
+            onChange={handleChange}
+          />
+          <label htmlFor="local">Garder les MPs</label>
         </fieldset>
       </div>
 

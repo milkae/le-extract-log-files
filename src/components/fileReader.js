@@ -26,6 +26,7 @@ const FileInput = ({ setFilteredText, options }) => {
           .join("|")
         return numbers && `@ (${numbers})]:`
       },
+      mp: checked => checked && `${date} \\[MP`,
     }
 
     const selecteFilters = Object.keys(options)
