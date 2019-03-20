@@ -112,13 +112,24 @@ const Options = ({ setOptions, options }) => {
               onChange={handleChange}
             />
           </div>
-          <input
-            type="checkbox"
-            name="mp"
-            checked={values.mp}
-            onChange={handleChange}
-          />
-          <label htmlFor="local">Garder les MPs</label>
+          <div>
+            <input
+              type="checkbox"
+              name="mp"
+              checked={values.mp}
+              onChange={handleChange}
+            />
+            <label htmlFor="local">Garder les MPs</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name="hrp"
+              checked={values.hrp}
+              onChange={handleChange}
+            />
+            <label htmlFor="local">Filtrer les messages HRP</label>
+          </div>
         </fieldset>
       </div>
 

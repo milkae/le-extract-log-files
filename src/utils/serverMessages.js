@@ -42,7 +42,7 @@ export default [
   `${date} Objets `,
   `${date} L'eau`,
   `${date} Adonis annonce :`,
-  `${date} [\\w-\.]+$`,
+  `${date} [\\w-\\.]+$`,
   `${date} [\\w-_]+ marquée$`,
   `${date} \\w+ vient de se dissiper dans l'.ther\\.$`,
   `${date} \\d+ ((de tes)|ton|ta) [\\w ]+ a|ont .t. d.truite?s? !$`,
