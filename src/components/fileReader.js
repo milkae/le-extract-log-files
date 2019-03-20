@@ -13,11 +13,11 @@ const FileInput = ({ setFilteredText, options }) => {
   const testLine = line => {
     const date = "\\[\\d{2}:\\d{2}:\\d{2}\\]"
     const filters = {
-      c2: checked => checked && "@ 2]:",
-      c3: checked => checked && "@ 3]:",
-      c1: checked => checked && "@ 1]:",
-      local: checked => checked && `${date} [^\\[]`,
-      peuple: checked => checked && "@ 1[1-8]]:",
+      c2: checked => checked && `^\\d{1,2} ${date} \\[\\w+ @ 2\\]:`,
+      c3: checked => checked && `^\\d{1,2} ${date} \\[\\w+ @ 2\\]:`,
+      c1: checked => checked && `^\\d{1,2} ${date} \\[\\w+ @ 2\\]:`,
+      local: checked => checked && `^\\d{1,2} ${date} [^\\[]`,
+      peuple: checked => checked && `^\\d{1,2} ${date} \\[\\w+ @ 1[1-8]\\]:`,
       channels: liste => {
         const numbers = liste
           .split(";")
