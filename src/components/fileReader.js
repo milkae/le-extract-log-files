@@ -53,11 +53,19 @@ const FileInput = ({ setFilteredText, options }) => {
 
     const dateMatch = new RegExp(date)
 
+    let toExclude = serverMessages
+    if (options.hrp) {
+      toExclude = [
+        ...toExclude,
+        `${date} ([\\w+ @ \\d+]: )?((\\(.+\\))|((\\(?.+\\)))|(\\(.+\\)?))`,
+      ]
+    }
+
     return (
       line &&
       dateMatch.test(line) &&
       namesMatch(line) &&
-      serverMessages.every(exclude => {
+      toExclude.every(exclude => {
         const regex = new RegExp(exclude)
         return !regex.test(line)
       }) &&

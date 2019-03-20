@@ -128,7 +128,7 @@ const Options = ({ setOptions, options }) => {
               checked={values.hrp}
               onChange={handleChange}
             />
-            <label htmlFor="local">Filtrer les messages HRP</label>
+            <label htmlFor="local">Filtrer les messages HRP (beta)</label>
           </div>
         </fieldset>
       </div>
