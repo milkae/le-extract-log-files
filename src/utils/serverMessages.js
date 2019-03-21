@@ -115,7 +115,7 @@ export default [
   "\\w+ vient de se faire [\\w ]+ et re.oit une dose de poison|venin de \\d+\\.$",
   "aurait du appeler . l'aide, m.me si personne ne se serait d.plac.\\.$",
   "[\\w ]+ re.oit un coup critique de \\d+ d.g.ts\\.$",
-  "[\\w ]+ re.oit \\d+ d.g.ts de [\\w ]+\\.$",
+  "[\\w ]+ re.oit \\d+ d.g.ts( de)? [\\w ]+\\.$",
   "[\\w ]+ a .t. assom. (\\d+ secondes)!$",
   "[\\w ]+ te d.fi(e)? en duel !$",
   "[\\w ']+ t'a drain. \\d+ points de mana !$",
