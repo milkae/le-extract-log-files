@@ -7,12 +7,17 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   margin-bottom: 1rem;
   justify-content: space-between;
+  color: #fff;
+}
+
+.viewer p {
+  margin: 0;
+  padding: 0;
 }
 
 .viewer__window {
   display: flex;
   flex-direction: column;
-  color: #fff;
   max-width: 49%;
 }
 

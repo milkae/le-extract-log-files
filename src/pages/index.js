@@ -9,6 +9,7 @@ import SEO from "../components/seo"
 import "./index.css"
 
 const IndexPage = () => {
+  const [diffViewIsVisible, showDiffView] = useState(false)
   const [toKeep, setToKeep] = useState("")
   const [toRemove, setToRemove] = useState("")
   const [options, setOptions] = useState({
@@ -57,26 +58,41 @@ const IndexPage = () => {
         <div>
           <FileDownloader text={toKeep} />
           <h3 style={{ marginTop: "1rem" }}>Prévisualisation du texte :</h3>
+          <button onClick={() => showDiffView(!diffViewIsVisible)}>
+            Visualiser les différences
+          </button>
           <div className="viewer">
-            <div className="viewer__window viewer__window--keep">
-              {toKeep.map((item, i) => (
-                <div className="viewer__window__line" key={i}>
-                  <span>{i}</span>
-                  <p>{item}</p>
-                  <button onClick={() => removeLine(item, i)}>-</button>
+            {diffViewIsVisible ? (
+              <>
+                <div className="viewer__window viewer__window--keep">
+                  {toKeep.map((item, i) => (
+                    <div className="viewer__window__line" key={i}>
+                      <span>{i}</span>
+                      <p>{item}</p>
+                      <button onClick={() => removeLine(item, i)}>-</button>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <hr />
-            <div className="viewer__window viewer__window--remove">
-              {toRemove.map((item, i) => (
-                <div className="viewer__window__line" key={i}>
-                  <span>{i}</span>
-                  <p>{item}</p>
-                  <button onClick={() => keepLine(item, i)}>+</button>
+                <hr />
+                <div className="viewer__window viewer__window--remove">
+                  {toRemove.map((item, i) => (
+                    <div className="viewer__window__line" key={i}>
+                      <span>{i}</span>
+                      <p>{item}</p>
+                      <button onClick={() => keepLine(item, i)}>+</button>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            ) : (
+              <div className="">
+                {toKeep.filter(Boolean).map((item, i) => (
+                  <div className="" key={i}>
+                    <p>{item}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
