@@ -57,7 +57,7 @@ const FileInput = ({ setFilteredText, options }) => {
     if (options.hrp) {
       toExclude = [
         ...toExclude,
-        `${date} ([\\w+ @ \\d+]: )?((\\(.+\\))|((\\(?.+\\)))|(\\(.+\\)?))`,
+        `${date} (\\[\\w+ @ \\d+\\]:|\\w+:)( )?((\\(.+\\))|((\\(?.+\\)))|(\\(.+\\)?))`,
       ]
     }
 
