@@ -6,6 +6,7 @@ import FileDownloader from "../components/fileDownloader"
 import Options from "../components/options"
 
 import SEO from "../components/seo"
+import "./index.css"
 
 const IndexPage = () => {
   const [toKeep, setToKeep] = useState("")
@@ -42,9 +43,24 @@ const IndexPage = () => {
         <div>
           <FileDownloader text={toKeep} />
           <h3 style={{ marginTop: "1rem" }}>Prévisualisation du texte :</h3>
-          {toKeep.map((item, i) => (
-            <div key={i}>{item}</div>
-          ))}
+          <div className="viewer">
+            <div className="viewer__window viewer__window--keep">
+              {toKeep.map((item, i) => (
+                <div className="viewer__window__line" key={i}>
+                  <span>{i}</span>
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+            <div className="viewer__window viewer__window--remove">
+              {toRemove.map((item, i) => (
+                <div className="viewer__window__line" key={i}>
+                  <span>{i}</span>
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </Layout>

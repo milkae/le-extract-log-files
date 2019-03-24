@@ -1,0 +1,44 @@
+.viewer {
+  display: flex;
+  max-width: 96vw;
+  margin: auto;
+  background-color: hsl(0, 5%, 22%);
+  padding: 1rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  margin-bottom: 1rem;
+  justify-content: space-between;
+}
+
+.viewer__window {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  max-width: 49%;
+}
+
+.viewer__window__line {
+  display: flex;
+  max-width: 100%;
+}
+
+.viewer__window__line span {
+  width: 4ch;
+}
+
+.viewer__window__line p {
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  align-items: center;
+  width: calc(100% - 4ch);
+}
+
+.viewer__window--keep p:not(:empty) {
+  background-color: hsla(101, 53%, 33%, 0.75);
+}
+
+.viewer__window--remove p:not(:empty) {
+  background-color: hsla(355, 51%, 55%, 0.75);
+}
