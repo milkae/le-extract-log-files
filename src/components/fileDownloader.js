@@ -14,8 +14,16 @@ const FileDownLoader = ({ text }) => {
 
   return (
     <div>
-      <button onClick={downloadTxtFile}>
-        Télécharger le résultat dans un fichier
+      <button
+        style={{
+          backgroundColor: "hsl(224, 53%, 44%)",
+          borderColor: "hsl(234, 23%, 50%)",
+          color: "#fff",
+          padding: "0.5rem 1rem",
+        }}
+        onClick={downloadTxtFile}
+      >
+        Télécharger les logs filtrés
       </button>
     </div>
   )

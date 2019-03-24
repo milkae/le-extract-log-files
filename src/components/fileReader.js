@@ -77,20 +77,21 @@ const FileInput = ({ setToKeep, setToRemove, options }) => {
   }
 
   const filterFile = () => {
-    const lines = text.split(/[\r\n]+/g)
-    const [toKeep, toRemove] = lines.reduce(
-      ([keep, remove], curr, index, arr) => {
-        if (testLine(curr)) {
-          return [[...keep, curr], [...remove, ""]]
-        } else {
-          return [[...keep, ""], [...remove, curr]]
-        }
-      },
-      [[], []]
-    )
-
-    setToRemove(toRemove)
-    setToKeep(toKeep)
+    const lines = text && text.split(/[\r\n]+/g)
+    if (lines) {
+      const [toKeep, toRemove] = lines.reduce(
+        ([keep, remove], curr, index, arr) => {
+          if (testLine(curr)) {
+            return [[...keep, curr], [...remove, ""]]
+          } else {
+            return [[...keep, ""], [...remove, curr]]
+          }
+        },
+        [[], []]
+      )
+      setToRemove(toRemove)
+      setToKeep(toKeep)
+    }
   }
 
   const handleFileRead = e => {

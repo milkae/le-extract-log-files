@@ -1,11 +1,20 @@
+.index__content {
+  width: 90vw;
+  margin: auto;
+  margin-top: 1.5rem;
+}
+
+h3 {
+  margin: 2rem auto 1rem;
+}
+
 .viewer {
   display: flex;
   max-width: 96vw;
-  margin: auto;
+  margin: 1.5rem auto;
   background-color: hsl(0, 5%, 22%);
   padding: 1rem;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  margin-bottom: 1rem;
   justify-content: space-between;
   color: #fff;
 }
@@ -36,7 +45,7 @@ hr {
 }
 
 .viewer__window__line span {
-  width: 4ch;
+  width: 5ch;
   font-size: 0.8rem;
 }
 
@@ -61,7 +70,7 @@ hr {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: calc(100% - 4ch);
+  width: calc(100% - 5ch);
 }
 
 .viewer__window--keep p:not(:empty) {
