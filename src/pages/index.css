@@ -16,13 +16,38 @@
   max-width: 49%;
 }
 
+hr {
+  color: white;
+  border-style: inset;
+  border-width: 1px;
+  margin: 0.5em auto;
+  height: auto;
+}
+
 .viewer__window__line {
   display: flex;
   max-width: 100%;
+  align-items: center;
 }
 
 .viewer__window__line span {
   width: 4ch;
+  font-size: 0.8rem;
+}
+
+.viewer__window__line button {
+  font-size: 0.8rem;
+  font-weight: bold;
+  line-height: 0.6rem;
+  padding: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+  background-color: grey;
+  outline: none;
+  border: none;
+  color: #fff;
+  margin-left: 0.5rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .viewer__window__line p {
@@ -31,7 +56,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  align-items: center;
   width: calc(100% - 4ch);
 }
 

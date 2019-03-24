@@ -24,6 +24,20 @@ const IndexPage = () => {
     names: "",
   })
 
+  const removeLine = (line, index) => {
+    setToKeep([...toKeep.slice(0, index), "", ...toKeep.slice(index + 1)])
+    setToRemove([
+      ...toRemove.slice(0, index),
+      line,
+      ...toRemove.slice(index + 1),
+    ])
+  }
+
+  const keepLine = (line, index) => {
+    setToRemove([...toRemove.slice(0, index), "", ...toRemove.slice(index + 1)])
+    setToKeep([...toKeep.slice(0, index), line, ...toKeep.slice(index + 1)])
+  }
+
   return (
     <Layout>
       <SEO
@@ -49,14 +63,17 @@ const IndexPage = () => {
                 <div className="viewer__window__line" key={i}>
                   <span>{i}</span>
                   <p>{item}</p>
+                  <button onClick={() => removeLine(item, i)}>-</button>
                 </div>
               ))}
             </div>
+            <hr />
             <div className="viewer__window viewer__window--remove">
               {toRemove.map((item, i) => (
                 <div className="viewer__window__line" key={i}>
                   <span>{i}</span>
                   <p>{item}</p>
+                  <button onClick={() => keepLine(item, i)}>+</button>
                 </div>
               ))}
             </div>
