@@ -4,14 +4,12 @@ import Layout from "../components/layout"
 import FileReader from "../components/fileReader"
 import FileDownloader from "../components/fileDownloader"
 import Options from "../components/options"
-
 import SEO from "../components/seo"
 import "./index.css"
 
 const IndexPage = () => {
   const [diffViewIsVisible, showDiffView] = useState(false)
-  const [toKeep, setToKeep] = useState([])
-  const [toRemove, setToRemove] = useState([])
+  const [texts, setTexts] = useState({ toKeep: false, toRemove: false })
   const [options, setOptions] = useState({
     c2: true,
     c3: false,
@@ -25,18 +23,24 @@ const IndexPage = () => {
     names: "",
   })
 
+  const { toKeep, toRemove } = texts
+
   const removeLine = (line, index) => {
-    setToKeep([...toKeep.slice(0, index), "", ...toKeep.slice(index + 1)])
-    setToRemove([
-      ...toRemove.slice(0, index),
-      line,
-      ...toRemove.slice(index + 1),
-    ])
+    setTexts({
+      toKeep: [...toKeep.slice(0, index), "", ...toKeep.slice(index + 1)],
+      toRemove: [
+        ...toRemove.slice(0, index),
+        line,
+        ...toRemove.slice(index + 1),
+      ],
+    })
   }
 
   const keepLine = (line, index) => {
-    setToRemove([...toRemove.slice(0, index), "", ...toRemove.slice(index + 1)])
-    setToKeep([...toKeep.slice(0, index), line, ...toKeep.slice(index + 1)])
+    setTexts({
+      toRemove: [...toRemove.slice(0, index), "", ...toRemove.slice(index + 1)],
+      toKeep: [...toKeep.slice(0, index), line, ...toKeep.slice(index + 1)],
+    })
   }
 
   return (
@@ -47,55 +51,53 @@ const IndexPage = () => {
       />
       <Options setOptions={setOptions} options={options} />
       <div className="index__content">
-        <p>
-          Chargez le fichier des logs à traiter :{" "}
-          <FileReader
-            setToKeep={setToKeep}
-            setToRemove={setToRemove}
-            options={options}
-          />
-        </p>
+        <div className="index__content__load">
+          <p>Chargez le fichier des logs à traiter :</p>
+          <FileReader setTexts={setTexts} options={options} />
+        </div>
         {toKeep && !!toKeep.length && (
-          <div>
+          <>
             <FileDownloader text={toKeep} />
-            <h3>Prévisualisation du texte :</h3>
-            <button onClick={() => showDiffView(!diffViewIsVisible)}>
-              Visualiser les différences
-            </button>
-            <div className="viewer">
-              {diffViewIsVisible ? (
-                <>
-                  <div className="viewer__window viewer__window--keep">
-                    {toKeep.map((item, i) => (
-                      <div className="viewer__window__line" key={i}>
-                        <span>{i}</span>
-                        <p>{item}</p>
-                        <button onClick={() => removeLine(item, i)}>-</button>
-                      </div>
-                    ))}
-                  </div>
-                  <hr />
-                  <div className="viewer__window viewer__window--remove">
-                    {toRemove.map((item, i) => (
-                      <div className="viewer__window__line" key={i}>
-                        <span>{i}</span>
-                        <p>{item}</p>
-                        <button onClick={() => keepLine(item, i)}>+</button>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <div className="">
-                  {toKeep.filter(Boolean).map((item, i) => (
-                    <div className="" key={i}>
-                      <p>{item}</p>
+            <div className="index__content__preview">
+              <h3>Prévisualisation du texte :</h3>
+              <button onClick={() => showDiffView(!diffViewIsVisible)}>
+                Vue différentielle
+              </button>
+              <div className="viewer">
+                {diffViewIsVisible ? (
+                  <>
+                    <div className="viewer__window viewer__window--keep">
+                      {toKeep.map((item, i) => (
+                        <div className="viewer__window__line" key={i}>
+                          <span>{i}</span>
+                          <p>{item}</p>
+                          <button onClick={() => removeLine(item, i)}>-</button>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              )}
+                    <hr />
+                    <div className="viewer__window viewer__window--remove">
+                      {toRemove.map((item, i) => (
+                        <div className="viewer__window__line" key={i}>
+                          <span>{i}</span>
+                          <p>{item}</p>
+                          <button onClick={() => keepLine(item, i)}>+</button>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="">
+                    {toKeep.filter(Boolean).map((item, i) => (
+                      <div className="" key={i}>
+                        <p>{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </Layout>

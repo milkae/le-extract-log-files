@@ -22,7 +22,7 @@ const Options = ({ setOptions, options }) => {
           Personnaliser les filtres
         </button>
       ) : (
-        <button onClick={() => setExpanded(false)}>X</button>
+        <button onClick={() => setExpanded(false)}>x</button>
       )}
       {expanded && (
         <form
