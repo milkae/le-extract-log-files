@@ -77,7 +77,7 @@ const FileInput = ({ setToKeep, setToRemove, options }) => {
   }
 
   const filterFile = () => {
-    const lines = text.split(/[\r\n]+/g).slice(0, 200)
+    const lines = text.split(/[\r\n]+/g)
     const [toKeep, toRemove] = lines.reduce(
       ([keep, remove], curr, index, arr) => {
         if (testLine(curr)) {
