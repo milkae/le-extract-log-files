@@ -8,7 +8,8 @@ import Options from "../components/options"
 import SEO from "../components/seo"
 
 const IndexPage = () => {
-  const [text, setText] = useState("")
+  const [toKeep, setToKeep] = useState("")
+  const [toRemove, setToRemove] = useState("")
   const [options, setOptions] = useState({
     c2: true,
     c3: false,
@@ -30,14 +31,18 @@ const IndexPage = () => {
       />
       <p>
         Chargez le fichier des logs à traiter :{" "}
-        <FileReader setFilteredText={setText} options={options} />
+        <FileReader
+          setToKeep={setToKeep}
+          setToRemove={setToRemove}
+          options={options}
+        />
       </p>
       <Options setOptions={setOptions} options={options} />
-      {text && (
+      {toKeep && (
         <div>
-          <FileDownloader text={text} />
+          <FileDownloader text={toKeep} />
           <h3 style={{ marginTop: "1rem" }}>Prévisualisation du texte :</h3>
-          {text.split("\n").map((item, i) => (
+          {toKeep.map((item, i) => (
             <div key={i}>{item}</div>
           ))}
         </div>

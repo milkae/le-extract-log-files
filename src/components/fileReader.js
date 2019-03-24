@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react"
 import serverMessages from "../utils/serverMessages"
 
-const FileInput = ({ setFilteredText, options }) => {
+const FileInput = ({ setToKeep, setToRemove, options }) => {
   const [text, setText] = useState("")
 
   useEffect(() => {
     filterFile()
-  })
+  }, [options, text])
 
   let fileReader
 
@@ -77,9 +77,20 @@ const FileInput = ({ setFilteredText, options }) => {
   }
 
   const filterFile = () => {
-    const lines = text.split(/[\r\n]+/g)
-    const filteredLines = lines.filter(testLine)
-    setFilteredText(filteredLines.join("\r\n"))
+    const lines = text.split(/[\r\n]+/g).slice(0, 200)
+    const [toKeep, toRemove] = lines.reduce(
+      ([keep, remove], curr, index, arr) => {
+        if (testLine(curr)) {
+          return [[...keep, curr], [...remove, ""]]
+        } else {
+          return [[...keep, ""], [...remove, curr]]
+        }
+      },
+      [[], []]
+    )
+
+    setToRemove(toRemove)
+    setToKeep(toKeep)
   }
 
   const handleFileRead = e => {

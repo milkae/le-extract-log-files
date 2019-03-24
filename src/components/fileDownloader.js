@@ -1,9 +1,11 @@
 import React from "react"
 
-const FileDownLoader = ({text}) => {
+const FileDownLoader = ({ text }) => {
   const downloadTxtFile = () => {
     const element = document.createElement("a")
-    const file = new Blob([text], { type: "text/plain" })
+    const file = new Blob([text.filter(Boolean).join("\r\n")], {
+      type: "text/plain",
+    })
     element.href = URL.createObjectURL(file)
     element.download = "cleaned_chat_logs.txt"
     document.body.appendChild(element)
