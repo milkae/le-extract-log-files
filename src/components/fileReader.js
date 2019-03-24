@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react"
 import serverMessages from "../utils/serverMessages"
+import Spinner from "./spinner"
 
-const FileInput = ({ setFilteredText, options }) => {
+const FileInput = ({ setTexts, options }) => {
   const [text, setText] = useState("")
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     filterFile()
-  })
+  }, [options, text])
 
   let fileReader
 
@@ -77,9 +79,23 @@ const FileInput = ({ setFilteredText, options }) => {
   }
 
   const filterFile = () => {
-    const lines = text.split(/[\r\n]+/g)
-    const filteredLines = lines.filter(testLine)
-    setFilteredText(filteredLines.join("\r\n"))
+    const lines = text && text.split(/[\r\n]+/g)
+    if (lines) {
+      setLoading(true)
+
+      const [toKeep, toRemove] = lines.reduce(
+        ([keep, remove], curr, index, arr) => {
+          if (testLine(curr)) {
+            return [[...keep, curr], [...remove, ""]]
+          } else {
+            return [[...keep, ""], [...remove, curr]]
+          }
+        },
+        [[], []]
+      )
+      setTexts({ toKeep, toRemove })
+    }
+    setLoading(false)
   }
 
   const handleFileRead = e => {
@@ -94,13 +110,19 @@ const FileInput = ({ setFilteredText, options }) => {
   }
 
   return (
-    <input
-      type="file"
-      id="file"
-      className="input-file"
-      accept=".txt"
-      onChange={e => handleFile(e.target.files[0])}
-    />
+    <div>
+      <input
+        type="file"
+        id="file"
+        className="input-file"
+        accept=".txt"
+        onChange={e => {
+          setLoading(true)
+          handleFile(e.target.files[0])
+        }}
+      />
+      {loading && <Spinner />}
+    </div>
   )
 }
 

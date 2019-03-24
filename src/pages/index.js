@@ -4,11 +4,12 @@ import Layout from "../components/layout"
 import FileReader from "../components/fileReader"
 import FileDownloader from "../components/fileDownloader"
 import Options from "../components/options"
-
 import SEO from "../components/seo"
+import "./index.css"
 
 const IndexPage = () => {
-  const [text, setText] = useState("")
+  const [diffViewIsVisible, showDiffView] = useState(false)
+  const [texts, setTexts] = useState({ toKeep: false, toRemove: false })
   const [options, setOptions] = useState({
     c2: true,
     c3: false,
@@ -22,26 +23,83 @@ const IndexPage = () => {
     names: "",
   })
 
+  const { toKeep, toRemove } = texts
+
+  const removeLine = (line, index) => {
+    setTexts({
+      toKeep: [...toKeep.slice(0, index), "", ...toKeep.slice(index + 1)],
+      toRemove: [
+        ...toRemove.slice(0, index),
+        line,
+        ...toRemove.slice(index + 1),
+      ],
+    })
+  }
+
+  const keepLine = (line, index) => {
+    setTexts({
+      toRemove: [...toRemove.slice(0, index), "", ...toRemove.slice(index + 1)],
+      toKeep: [...toKeep.slice(0, index), line, ...toKeep.slice(index + 1)],
+    })
+  }
+
   return (
     <Layout>
       <SEO
         title="Home"
         keywords={[`landes éternelles`, `jeu de rôle`, `jdr`, `mmorpg`, `rpg`]}
       />
-      <p>
-        Chargez le fichier des logs à traiter :{" "}
-        <FileReader setFilteredText={setText} options={options} />
-      </p>
       <Options setOptions={setOptions} options={options} />
-      {text && (
-        <div>
-          <FileDownloader text={text} />
-          <h3 style={{ marginTop: "1rem" }}>Prévisualisation du texte :</h3>
-          {text.split("\n").map((item, i) => (
-            <div key={i}>{item}</div>
-          ))}
+      <div className="index__content">
+        <div className="index__content__load">
+          <p>Chargez le fichier des logs à traiter :</p>
+          <FileReader setTexts={setTexts} options={options} />
         </div>
-      )}
+        {toKeep && !!toKeep.length && (
+          <>
+            <FileDownloader text={toKeep} />
+            <div className="index__content__preview">
+              <h3>Prévisualisation du texte :</h3>
+              <button onClick={() => showDiffView(!diffViewIsVisible)}>
+                Vue différentielle
+              </button>
+              <div className="viewer">
+                {diffViewIsVisible ? (
+                  <>
+                    <div className="viewer__window viewer__window--keep">
+                      {toKeep.map((item, i) => (
+                        <div className="viewer__window__line" key={i}>
+                          <span>{i}</span>
+                          <p>{item}</p>
+                          <button onClick={() => removeLine(item, i)}>-</button>
+                        </div>
+                      ))}
+                    </div>
+                    <hr />
+                    <div className="viewer__window viewer__window--remove">
+                      {toRemove.map((item, i) => (
+                        <div className="viewer__window__line" key={i}>
+                          <span>{i}</span>
+                          <p>{item}</p>
+                          <button onClick={() => keepLine(item, i)}>+</button>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="">
+                    {toKeep.filter(Boolean).map((item, i) => (
+                      <div className="" key={i}>
+                        <p>{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </Layout>
   )
 }

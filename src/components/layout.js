@@ -29,7 +29,7 @@ const Layout = ({ children }) => (
           minHeight: `100vh`,
           gridTemplateRows: "auto 1fr auto",
           display: "grid",
-          backgroundColor: "#e3c396",
+          backgroundColor: "rgb(228, 221, 211)",
         }}
       >
         <Header siteTitle={data.site.siteMetadata.title} />
