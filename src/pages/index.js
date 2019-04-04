@@ -26,6 +26,9 @@ const IndexPage = () => {
   const { toKeep, toRemove } = texts
 
   const removeLine = (line, index) => {
+    if (!Boolean(line)) {
+      return
+    }
     setTexts({
       toKeep: [...toKeep.slice(0, index), "", ...toKeep.slice(index + 1)],
       toRemove: [
@@ -37,6 +40,9 @@ const IndexPage = () => {
   }
 
   const keepLine = (line, index) => {
+    if (!Boolean(line)) {
+      return
+    }
     setTexts({
       toRemove: [...toRemove.slice(0, index), "", ...toRemove.slice(index + 1)],
       toKeep: [...toKeep.slice(0, index), line, ...toKeep.slice(index + 1)],
